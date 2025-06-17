@@ -24,7 +24,7 @@ namespace TaskManagementTool.Models
         [EnumDataType(typeof(Status), ErrorMessage = "Ungültiger Status.")]
         public Status AktuellerStatus { get; set; } //= Status.Offen;
 
-        internal void SetId(int id)
+        public void SetId(int id)
         {
             ID = id;
         }

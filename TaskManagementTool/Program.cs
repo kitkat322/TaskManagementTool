@@ -2,21 +2,15 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Text.Json.Serialization;
 using TaskManagementTool.Data;
+using TaskManagementTool.Repository;
+using TaskManagementTool.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-
-// for json to be read like text instead of numbers
-//builder.Services
-//    .AddControllersWithViews()
-//    .AddJsonOptions(options =>
-//    {
-//        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-//    });
-//    builder.Services.AddSingleton<ITaskItemRepo, TaskItemRepo>();
+builder.Services.AddScoped<ITaskItemRepository, TaskItemRepository>();
+builder.Services.AddScoped<ITaskItemService, TaskItemService>();
 
 builder.Services
     .AddControllersWithViews()
@@ -28,7 +22,7 @@ builder.Services
 //db connection
 builder.Services.AddDbContext<TaskItemDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(8, 0, 36)) // ”кажи версию своей MySQL
+        new MySqlServerVersion(new Version(8, 0, 4))
     )
 );
 
